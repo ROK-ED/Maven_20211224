@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.micol.prj.member.service.MemberMapper">
+	<select id="memberSelectList"
+		resultType="co.micol.prj.member.service.MemberVO">
+		SELECT*FROM MEMBER
+	</select>
+	<!-- 컨트롤 쉬프트 x 로 sql문은 대문자로 하는게 관례 -->
+
+	<select id="memberSelect"
+		parameterType="co.micol.prj.member.service.MemberVO"
+		resultType="co.micol.prj.member.service.MemberVO">
+		SELECT * FROM MEMBER WHERE ID = #{id}
+	</select>
+	<!-- 여기는 EL 표현식이 #으로 사용된다. -->
+
+	<insert id="memberInsert"
+		parameterType="co.micol.prj.member.service.MemberVO">
+		INSERT INTO MEMBER(ID, PASSWORD, NAME, TEL, ADDRESS,
+		PICTURE, PFILE)
+		VALUES(#{id}, #{password}, #{name}, #{tel}, #{address},
+		#{picture}, #{pfile})
+	</insert>
+
+	<delete id="memberDelete"
+		parameterType="co.micol.prj.member.service.MemberVO">
+		DELETE FROM MEMBER WHERE ID = #{id}
+	</delete>
+	<update id="memberUpdate"
+		parameterType="co.micol.prj.member.service.MemberVO">
+		UPDATE MEMBER SET PASSWORD = #{password},
+			TEL = #{tel}, ADRESS = #{adress}, AUTHOR = #{author}, 
+			PICTURE = #{picture}, PFILE = #{pfile}
+		WHERE ID = #{id}
+	</update>
+</mapper>
