@@ -4,15 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>My Web Project</title>
+<title>Insert title here</title>
 </head>
 <body>
 <div align="center">
-	<div><h1>WellCome to my Home</h1></div>
-	<div>
-		<a href="memberList.do">멤버목록보기</a>
-		<a href="memberJoinForm.do">회원가입</a>
-	</div>
+<div><h1>${message }</h1></div>
 </div>
 </body>
 </html>

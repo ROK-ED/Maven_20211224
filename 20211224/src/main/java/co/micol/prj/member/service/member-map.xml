@@ -11,6 +11,11 @@
 		parameterType="co.micol.prj.member.service.MemberVO"
 		resultType="co.micol.prj.member.service.MemberVO">
 		SELECT * FROM MEMBER WHERE ID = #{id}
+
+		<!-- 동적 SQL MAPPER -->
+		<if test="password != null">
+			AND PASSWORD = #{password}
+		</if>
 	</select>
 	<!-- 여기는 EL 표현식이 #으로 사용된다. -->
 
@@ -28,9 +33,20 @@
 	</delete>
 	<update id="memberUpdate"
 		parameterType="co.micol.prj.member.service.MemberVO">
-		UPDATE MEMBER SET PASSWORD = #{password},
-			TEL = #{tel}, ADRESS = #{adress}, AUTHOR = #{author}, 
-			PICTURE = #{picture}, PFILE = #{pfile}
+		UPDATE MEMBER
+			<if test="password != null">SET PASSWORD = #{password}</if>
+			<if test="tel != null">SET TEL = #{tel}</if>
+			<if test="adress != null">SET ADRESS = #{adress}</if>
+			<if test="author != null">SET AUTHOR = #{author}</if>
+			<if test="picture != null">SET PICTURE = #{picture}</if>
+			<if test="pfile != null">SET PFILE = #{pfile}</if>
 		WHERE ID = #{id}
 	</update>
+	
+	<!-- resultType이 boolean일 경우 1 : true, 0 : false -->	
+	<select id="isIdCheck" parameterType="String"
+		resultType="boolean">
+		SELECT CASE WHEN COUNT(*) = 1 THEN 0 ELSE 1 END AS ID  
+		FROM MEMBER WHERE ID = #{id}
+	</select>
 </mapper>
